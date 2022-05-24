@@ -3,10 +3,65 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfApp1"
+        xmlns:local="clr-namespace:WpfApp1" d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
     <Grid>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1.2*"/>
+        </Grid.RowDefinitions>
+        <ListBox Grid.Column="0" ItemsSource="{Binding ComputerParts}" SelectedItem="{Binding SelectedComputerPart}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>ID:</Label>
+                        <Label Content="{Binding Identifier}"></Label>
+                        <Label>Brand:</Label>
+                        <Label Content="{Binding Brand}"></Label>
+                        <Label>Category:</Label>
+                        <Label Content="{Binding Category}"></Label>
+                        <Label>Price:</Label>
+                        <Label Content="{Binding Price}"></Label>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ListBox Grid.Column="1" ItemsSource="{Binding SelectedComputerParts}" SelectedItem="{Binding SelectedCPinComputer}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>Brand:</Label>
+                        <Label Content="{Binding Brand}"></Label>
+                        <Label>Category:</Label>
+                        <Label Content="{Binding Category}"></Label>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+        <Button Command="{Binding AddToComputerCommand}" Content="Add To Computer" ></Button>
+        <Button Command="{Binding RemoveFromComputerCommand}" Content="Remove From Computer" ></Button>
+        <Button Command="{Binding SaveComputerCommand}" Content="Save Computer"/>
+        <Button Command="{Binding EditComputerPartCommand}" Content="Edit Computer Part"/>
+        </StackPanel>
+        <ListBox Grid.Column="3" ItemsSource="{Binding Computers}">
+        <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <Label Content="{Binding SumPrice}"></Label>
+                        <Label Content="{Binding ListOfPartsString}"></Label>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Window>
